@@ -39,6 +39,7 @@ jobs:
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
+          tag_name: latest
           name: img2kvm ${{ github.ref_name }}
           body: |
             ## img2kvm ${{ github.ref_name }}
