@@ -105,6 +105,7 @@ fn run(parameter: Parameter) -> Result<()> {
         .arg("--format")
         .arg("qcow2")
         .output()
+        .context("Failed to execute qm command")?;
 
     if !output.status.success() {
         let stderr = String::from_utf8_lossy(&output.stderr);
