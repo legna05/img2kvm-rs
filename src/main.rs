@@ -31,7 +31,7 @@ struct Parameter {
     vm_id: usize,
 
     /// Storage pool of Proxmox VE.
-    #[arg(short = 's', long, default_value = "local-lvm", help = "Storage pool of Proxmox VE.")]
+    #[arg(short = 's', long, default_value = "local", help = "Storage pool of Proxmox VE.")]
     storage: String,
 }
 
@@ -101,9 +101,10 @@ fn run(parameter: Parameter) -> Result<()> {
         .arg("importdisk")
         .arg(parameter.vm_id.to_string())
         .arg(&vmdisk_name)
-        .arg(parameter.storage)
+        .arg(&parameter.storage)
+        .arg("--format")
+        .arg("qcow2")
         .output()
-        .context("Failed to execute qm command")?;
 
     if !output.status.success() {
         let stderr = String::from_utf8_lossy(&output.stderr);
